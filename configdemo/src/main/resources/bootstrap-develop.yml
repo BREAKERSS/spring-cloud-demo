@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: configdemo
+  profiles:
+    active:
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
+        group: DEFAULT_GROUP
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
