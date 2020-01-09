@@ -31,6 +31,10 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * 实现一个Spring提供的事件推送接口
+ * 监听nacos的路由配置，实时更新路由
+ */
 @Component
 public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
     private final Logger logger = LoggerFactory.getLogger(DynamicRoutingConfig.class);
@@ -42,10 +46,17 @@ public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
 
     private ApplicationEventPublisher applicationEventPublisher;
 
+    /**
+     * 监听nacos上的路由配置文件的更新
+     *
+     * @throws NacosException
+     */
     @Bean
     public void refreshRouting() throws NacosException {
         Properties properties = new Properties();
+        //配置中心地址
         properties.put(PropertyKeyConst.SERVER_ADDR, "127.0.0.1:8848");
+        //配置中兴命名空间ID
         properties.put(PropertyKeyConst.NAMESPACE, "ba53da1e-57ff-4033-9d67-b82e579ea923");
         ConfigService configService = NacosFactory.createConfigService(properties);
         configService.addListener(DATA_ID, GROUP, new Listener() {
@@ -82,15 +93,16 @@ public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
 
     /**
      * 路由更新
+     *
      * @param routeDefinition
      * @return
      */
-    public void update(RouteDefinition routeDefinition){
+    public void update(RouteDefinition routeDefinition) {
 
         try {
             this.routeDefinitionWriter.delete(Mono.just(routeDefinition.getId()));
             logger.info("路由更新成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
 
@@ -98,7 +110,7 @@ public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
             routeDefinitionWriter.save(Mono.just(routeDefinition)).subscribe();
             this.applicationEventPublisher.publishEvent(new RefreshRoutesEvent(this));
             logger.info("路由更新成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
     }
@@ -112,7 +124,7 @@ public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
 
         // Predicates
         List<PredicateDefinition> pdList = new ArrayList<>();
-        for (PredicateEntity predicateEntity: routeEntity.getPredicates()) {
+        for (PredicateEntity predicateEntity : routeEntity.getPredicates()) {
             PredicateDefinition predicateDefinition = new PredicateDefinition();
             predicateDefinition.setArgs(predicateEntity.getArgs());
             predicateDefinition.setName(predicateEntity.getName());
@@ -122,7 +134,7 @@ public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
 
         // Filters
         List<FilterDefinition> fdList = new ArrayList<>();
-        for (FilterEntity filterEntity: routeEntity.getFilters()) {
+        for (FilterEntity filterEntity : routeEntity.getFilters()) {
             FilterDefinition filterDefinition = new FilterDefinition();
             filterDefinition.setArgs(filterEntity.getArgs());
             filterDefinition.setName(filterEntity.getName());
