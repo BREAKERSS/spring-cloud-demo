@@ -1,9 +1,7 @@
 package com.wyl.example.gatewaydemo.filter;
 
-import io.micrometer.core.instrument.util.JsonUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.bouncycastle.asn1.ocsp.ResponseData;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.core.Ordered;
@@ -13,8 +11,6 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.nio.charset.StandardCharsets;
-
 /**
  * 自定义拦截器
  */
@@ -22,6 +18,12 @@ public class RequestTimeFilter implements GatewayFilter, Ordered {
     private static final Log log = LogFactory.getLog(RequestTimeFilter.class);
     private static final String REQUEST_TIME_BEGIN = "requestTimeBegin";
 
+    /**
+     * 自定义拦截业务，输出请求所需时间
+     * @param exchange
+     * @param chain
+     * @return
+     */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
@@ -48,6 +50,10 @@ public class RequestTimeFilter implements GatewayFilter, Ordered {
 
     }
 
+    /**
+     * 用于设定过滤器优先级别，值越大则优先级越低
+     * @return
+     */
     @Override
     public int getOrder() {
         return 0;

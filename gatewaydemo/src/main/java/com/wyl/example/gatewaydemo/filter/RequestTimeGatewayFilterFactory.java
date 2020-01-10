@@ -10,22 +10,36 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 自定义拦截器工厂，可以在配置文件中
+ * 自定义拦截器工厂，可以在配置文件中配置使用
  */
 public class RequestTimeGatewayFilterFactory extends AbstractGatewayFilterFactory<RequestTimeGatewayFilterFactory.Config> {
     private static final Log log = LogFactory.getLog(RequestTimeGatewayFilterFactory.class);
     private static final String REQUEST_TIME_BEGIN = "requestTimeBegin";
     private static final String KEY = "withParams";
 
+    /**
+     * 将参数排序依次赋值
+     *
+     * @return
+     */
     @Override
     public List<String> shortcutFieldOrder() {
         return Arrays.asList(KEY);
     }
 
+    /**
+     * 调用父类的构造器把Config类型传过去，否则会报ClassCastException
+     */
     public RequestTimeGatewayFilterFactory() {
         super(Config.class);
     }
 
+    /**
+     * 自定义过滤器业务
+     *
+     * @param config
+     * @return
+     */
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
@@ -48,7 +62,9 @@ public class RequestTimeGatewayFilterFactory extends AbstractGatewayFilterFactor
         };
     }
 
-
+    /**
+     * 用于接受一个自定义参数
+     */
     public static class Config {
 
         private boolean withParams;

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 路由实体类
+ * 自定义路由实体类
  */
 @Data
 public class RouteEntity {

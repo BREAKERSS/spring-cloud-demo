@@ -20,11 +20,11 @@ import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
+import javax.annotation.PostConstruct;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,25 +38,32 @@ import java.util.concurrent.Executor;
 @Component
 public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
     private final Logger logger = LoggerFactory.getLogger(DynamicRoutingConfig.class);
-
+    /**
+     * 路由配置文件dataId
+     */
     private static final String DATA_ID = "gateway-demo.json";
+    /**
+     * 路由配置文件所在分组
+     */
     private static final String GROUP = "DEFAULT_GROUP";
     @Autowired
     private RouteDefinitionWriter routeDefinitionWriter;
 
     private ApplicationEventPublisher applicationEventPublisher;
 
+    private static final List<String> ROUTE_LIST = new ArrayList<>();
+
     /**
      * 监听nacos上的路由配置文件的更新
      *
      * @throws NacosException
      */
-    @Bean
+    @PostConstruct
     public void refreshRouting() throws NacosException {
         Properties properties = new Properties();
         //配置中心地址
         properties.put(PropertyKeyConst.SERVER_ADDR, "127.0.0.1:8848");
-        //配置中兴命名空间ID
+        //配置中心命名空间ID
         properties.put(PropertyKeyConst.NAMESPACE, "ba53da1e-57ff-4033-9d67-b82e579ea923");
         ConfigService configService = NacosFactory.createConfigService(properties);
         configService.addListener(DATA_ID, GROUP, new Listener() {
@@ -72,10 +79,15 @@ public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
                 boolean refreshGatewayRoute = JSONObject.parseObject(configInfo).getBoolean("refreshGatewayRoute");
 
                 if (refreshGatewayRoute) {
-                    List<RouteEntity> list = JSON.parseArray(JSONObject.parseObject(configInfo).getString("routeList")).toJavaList(RouteEntity.class);
-
-                    for (RouteEntity route : list) {
-                        update(assembleRouteDefinition(route));
+                    try {
+                        clearRoute();
+                        List<RouteEntity> list = JSON.parseArray(JSONObject.parseObject(configInfo).getString("routeList")).toJavaList(RouteEntity.class);
+                        for (RouteEntity route : list) {
+                            addRoute(assembleRouteDefinition(route));
+                        }
+                        publish();
+                    } catch (Exception e) {
+                        logger.error("路由更新出错", e);
                     }
                 } else {
                     logger.info("路由未发生变更");
@@ -92,29 +104,42 @@ public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
     }
 
     /**
-     * 路由更新
-     *
-     * @param routeDefinition
-     * @return
+     * 清除路由
      */
-    public void update(RouteDefinition routeDefinition) {
-
-        try {
-            this.routeDefinitionWriter.delete(Mono.just(routeDefinition.getId()));
-            logger.info("路由更新成功");
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+    private void clearRoute() {
+        for (String id : ROUTE_LIST) {
+            this.routeDefinitionWriter.delete(Mono.just(id)).subscribe();
         }
+        ROUTE_LIST.clear();
+    }
 
+    /**
+     * 添加路由
+     *
+     * @param definition
+     */
+    private void addRoute(RouteDefinition definition) {
         try {
-            routeDefinitionWriter.save(Mono.just(routeDefinition)).subscribe();
-            this.applicationEventPublisher.publishEvent(new RefreshRoutesEvent(this));
-            logger.info("路由更新成功");
+            routeDefinitionWriter.save(Mono.just(definition)).subscribe();
+            ROUTE_LIST.add(definition.getId());
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
+    /**
+     * 路由刷新
+     */
+    private void publish() {
+        this.applicationEventPublisher.publishEvent(new RefreshRoutesEvent(this.routeDefinitionWriter));
+    }
+
+    /**
+     * 类型转换
+     *
+     * @param routeEntity
+     * @return
+     */
     public RouteDefinition assembleRouteDefinition(RouteEntity routeEntity) {
 
         RouteDefinition definition = new RouteDefinition();

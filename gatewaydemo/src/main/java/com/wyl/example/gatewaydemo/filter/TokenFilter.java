@@ -2,7 +2,6 @@ package com.wyl.example.gatewaydemo.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -17,6 +16,12 @@ public class TokenFilter implements GlobalFilter, Ordered {
 
     private static final Logger logger = LoggerFactory.getLogger(TokenFilter.class);
 
+    /**
+     * 自定义过滤器业务，判断token是否存在
+     * @param exchange
+     * @param chain
+     * @return
+     */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String token = exchange.getRequest().getQueryParams().getFirst("token");
