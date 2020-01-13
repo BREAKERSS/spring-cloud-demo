@@ -1,6 +1,5 @@
 package com.wyl.example.configdemo.controller;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,16 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @author wyl
  */
 @RestController
-@RequestMapping("/customer")
-public class CustomerController {
-
-    @Value("${server.port:1234}")
-    private Integer port;
-
-    @RequestMapping("/getPort")
+@RequestMapping("/order")
+public class OrderController {
+    @RequestMapping("/get")
     public Integer getPort() {
-        return port;
+        return 123;
     }
-
-
 }
