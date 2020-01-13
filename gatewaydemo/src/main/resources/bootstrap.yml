@@ -13,8 +13,20 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
+    gateway:
+      routes:
+      - id: order_route
+        uri: lb://configdemo
+        predicates:
+        - Path=/order/**
+        filters:
+        - name: Hystrix
+          args:
+            name: HystrixCommand
+            fallbackUri: forward:/fallback/fallback
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+hystrix.command.fallbackcmd.execution.isolation.thread.timeoutInMilliseconds: 1000

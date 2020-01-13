@@ -21,6 +21,9 @@
     <modules>
         <module>configdemo</module>
         <module>gatewaydemo</module>
+        <module>feigndemo-api</module>
+        <module>feigndemo-consumer</module>
+        <module>feigndemo-provider</module>
     </modules>
 
     <dependencyManagement>

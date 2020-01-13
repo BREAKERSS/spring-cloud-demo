@@ -4,10 +4,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 自定义拦截器工厂，可以在配置文件中配置使用
@@ -43,6 +45,7 @@ public class RequestTimeGatewayFilterFactory extends AbstractGatewayFilterFactor
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
+            Map<String, String> uriVariables = exchange.getAttribute(ServerWebExchangeUtils.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
             exchange.getAttributes().put(REQUEST_TIME_BEGIN, System.currentTimeMillis());
             return chain.filter(exchange).then(
                     Mono.fromRunnable(() -> {

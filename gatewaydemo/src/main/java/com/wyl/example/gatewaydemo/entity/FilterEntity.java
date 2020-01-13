@@ -10,9 +10,13 @@ import java.util.Map;
  */
 @Data
 public class FilterEntity {
-    //过滤器对应的Name
+    /**
+     * 过滤器对应的Name
+     */
     private String name;
 
-    //路由规则
+    /**
+     * 路由规则
+     */
     private Map<String, String> args = new LinkedHashMap<>();
 }

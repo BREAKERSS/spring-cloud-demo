@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
@@ -11,8 +12,11 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
+
 /**
  * 自定义拦截器
+ * @author wyl
  */
 public class RequestTimeFilter implements GatewayFilter, Ordered {
     private static final Log log = LogFactory.getLog(RequestTimeFilter.class);
@@ -26,6 +30,7 @@ public class RequestTimeFilter implements GatewayFilter, Ordered {
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        Map<String, String> uriVariables = ServerWebExchangeUtils.getUriTemplateVariables(exchange);
 
         ServerHttpResponse response = exchange.getResponse();
 
