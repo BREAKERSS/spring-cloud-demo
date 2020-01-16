@@ -1,6 +1,6 @@
 spring:
   application:
-    name: feigndemo-api
+    name: hystrix-dashboard
   profiles:
     active:
   cloud:
@@ -14,16 +14,9 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
 ribbon:
-  eureka:
-    enabled: false
   ReadTimeout: 60000
   #请求连接的超时时间
   ConnectTimeout: 60000
 feign:
-    sentinel:
+    hystrix:
       enabled: true
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*,hystrix.stream'

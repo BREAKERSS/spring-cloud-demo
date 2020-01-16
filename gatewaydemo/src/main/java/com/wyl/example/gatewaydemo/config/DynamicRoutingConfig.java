@@ -92,8 +92,6 @@ public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
                 } else {
                     logger.info("路由未发生变更");
                 }
-
-
             }
         });
     }

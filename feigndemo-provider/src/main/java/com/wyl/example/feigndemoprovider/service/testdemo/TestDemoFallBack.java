@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component;
 public class TestDemoFallBack implements TestDemoService {
     @Override
     public String get() {
-        return "call fallback";
+        return "call fallback1";
     }
 }

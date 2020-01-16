@@ -14,19 +14,60 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
     gateway:
-      routes:
-      - id: order_route
-        uri: lb://configdemo
-        predicates:
-        - Path=/order/**
-        filters:
-        - name: Hystrix
-          args:
-            name: HystrixCommand
-            fallbackUri: forward:/fallback/fallback
+      enabled: true
+    # 该服务对应的 sentinel 端口
+    sentinel:
+      filter:
+        enabled: false
+      transport:
+        port: 8733
+        # Sentinel 控制台地址
+        dashboard: localhost:8080
+
+      # 服务启动直接建立心跳连接
+      eager: true
+#      数据源
+      datasource:
+#      名称随意
+#      限流
+        flow:
+#        从nacos获取数据
+          nacos:
+#          nacos地址
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-gw-flow-rules.json
+            groupId: DEFAULT_GROUP
+            rule-type: flow
+            namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
+#            降级
+        degrade:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-degrade-rules.json
+            groupId: DEFAULT_GROUP
+            rule-type: degrade
+            namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
+##            系统
+#        system:
+#          nacos:
+#            server-addr: localhost:8848
+#            dataId: ${spring.application.name}-system-rules.json
+#            groupId: SENTINEL_GROUP
+#            rule-type: system
+#            namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
+##            鉴权
+#        authority:
+#          nacos:
+#            server-addr: localhost:8848
+#            dataId: ${spring.application.name}-authority-rules.json
+#            groupId: SENTINEL_GROUP
+#            rule-type: authority
+#            namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
 management:
   endpoints:
     web:
       exposure:
         include: '*'
-hystrix.command.fallbackcmd.execution.isolation.thread.timeoutInMilliseconds: 1000
+#feign:
+#    sentinel:
+#      enabled: true

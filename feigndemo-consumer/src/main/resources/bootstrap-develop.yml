@@ -18,5 +18,10 @@ ribbon:
   #请求连接的超时时间
   ConnectTimeout: 60000
 feign:
-    hystrix:
+    sentinel:
       enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

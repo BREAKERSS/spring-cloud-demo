@@ -7,6 +7,9 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author wyl
+ */
 @RefreshScope
 @RestController
 public class TestDemoServiceImpl implements TestDemoService {
@@ -15,7 +18,6 @@ public class TestDemoServiceImpl implements TestDemoService {
 
     @Override
     @GetMapping("/testDemo/get")
-//    @Transactional
     public String get() {
         return "get success";
     }

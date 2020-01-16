@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableFeignClients(basePackages = {"com.wyl.example"})
 //@MapperScan(basePackages = {"com.jiayiedu.mapper"})
 @ComponentScan(basePackages = {"com.wyl.example"})
+//@EnableCircuitBreaker
 public class FeigndemoConsumerApplication {
 
     public static void main(String[] args) {

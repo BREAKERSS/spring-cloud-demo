@@ -4,11 +4,13 @@ import com.wyl.example.gatewaydemo.filter.RequestTimeGatewayFilterFactory;
 import com.wyl.example.gatewaydemo.predicate.CheckAuthRoutePredicateFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableFeignClients
+@EnableCircuitBreaker
 public class GatewaydemoApplication {
 
     public static void main(String[] args) {
