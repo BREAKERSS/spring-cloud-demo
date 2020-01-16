@@ -14,5 +14,5 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
 feign:
-  hystrix:
+  sentinel:
     enabled: true

@@ -108,12 +108,12 @@
             <!--<version>2.1.3.RELEASE</version>-->
         </dependency>
 
-        <!--&lt;!&ndash;sentinel依赖&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
-            <!--<version>2.1.0.RELEASE</version>-->
-        <!--</dependency>-->
+        <!--sentinel依赖-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <version>2.1.0.RELEASE</version>
+        </dependency>
         <!--&lt;!&ndash;监控&ndash;&gt;-->
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->

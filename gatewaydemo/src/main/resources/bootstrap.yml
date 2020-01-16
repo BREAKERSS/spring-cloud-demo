@@ -22,7 +22,7 @@ spring:
       transport:
         port: 8733
         # Sentinel 控制台地址
-        dashboard: localhost:8080
+        dashboard: localhost:8333
 
       # 服务启动直接建立心跳连接
       eager: true
@@ -37,7 +37,7 @@ spring:
             server-addr: localhost:8848
             dataId: ${spring.application.name}-gw-flow-rules.json
             groupId: DEFAULT_GROUP
-            rule-type: flow
+            rule-type: gw-flow
             namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
 #            降级
         degrade:
