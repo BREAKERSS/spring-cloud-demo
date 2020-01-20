@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author wyl
  */
@@ -17,8 +20,14 @@ public class TestDemoController {
     private TestDemoService testDemoService;
 
     @GetMapping("/get")
-    public String findDistrictGrade() throws Exception {
+    public String findDistrictGrade() {
 //        throw new Exception("出错啦");
-        return testDemoService.get();
+        try {
+            Map<String,String> map = new HashMap<>();
+            return testDemoService.get(map.get("12323"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
     }
 }

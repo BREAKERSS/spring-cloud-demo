@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: configdemo
+  profiles:
+    active:
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
+        group: DEFAULT_GROUP
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
+#Activiti property configuration
+  activiti:
+    database-schema-update: true
+    job-executor-activate: true # asyncExecutorEnabled属性设置设置true后将代替那些老的Job executor
+    history-level: full
+    db-history-used: true
+    check-process-definitions: false # 自动部署验证设置:true-开启（默认）、false-关闭
+  datasource:
+    url: jdbc:h2:mem:Activiti
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    initialization-mode: always
+#    filters: stat,wall,log4j

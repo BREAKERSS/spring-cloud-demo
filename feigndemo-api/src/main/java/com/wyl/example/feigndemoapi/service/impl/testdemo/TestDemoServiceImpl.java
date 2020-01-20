@@ -18,7 +18,7 @@ public class TestDemoServiceImpl implements TestDemoService {
 
     @Override
     @GetMapping("/testDemo/get")
-    public String get() {
+    public String get(String param) {
         return "get success";
     }
 }

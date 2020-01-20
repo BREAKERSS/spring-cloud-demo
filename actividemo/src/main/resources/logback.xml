@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
+    <!--彩色日志-->
     <property name="CONSOLE_LOG_PATTERN"
               value="%date{yyyy-MM-dd HH:mm:ss} | %highlight(%-5level) | %boldYellow(%thread) | %boldGreen(%logger) | %msg%n"/>
     <!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,%i索引【从数字0开始递增】,,, -->
@@ -41,13 +41,13 @@
         </encoder>
     </appender>
     <!-- 控制台输出日志级别 -->
-    <root level="bugger">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
     </root>
     <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
     <!-- com.liyan为根包，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG -->
     <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
-    <logger name="com.wyl.example.configdemo" level="DEBUG">
+    <logger name="com.wyl.example.actividemo" level="INFO">
         <appender-ref ref="jbagent"/>
     </logger>
 </configuration>

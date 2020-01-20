@@ -24,6 +24,8 @@
         <module>feigndemo-api</module>
         <module>feigndemo-consumer</module>
         <module>feigndemo-provider</module>
+        <module>actividemo</module>
+        <module>xxldemo</module>
     </modules>
 
     <dependencyManagement>
