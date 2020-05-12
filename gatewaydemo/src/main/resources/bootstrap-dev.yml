@@ -1,6 +1,6 @@
 spring:
   application:
-    name: feigndemo-consumer
+    name: gatewaydemo
   profiles:
     active:
   cloud:
@@ -10,14 +10,11 @@ spring:
         file-extension: yaml
       discovery:
         server-addr:  47.103.45.234:8848,47.103.53.23:8848,47.103.53.23:8847
+    gateway:
+      enabled: true
 ribbon:
   eureka:
     enabled: false
   ReadTimeout: 60000
   #请求连接的超时时间
   ConnectTimeout: 60000
-feign:
-  sentinel:
-    enabled: true
-  httpclient:
-    connection-timeout: 20000

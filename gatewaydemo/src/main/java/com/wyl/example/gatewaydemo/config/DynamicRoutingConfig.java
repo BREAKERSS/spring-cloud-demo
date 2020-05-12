@@ -10,9 +10,11 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.wyl.example.gatewaydemo.entity.FilterEntity;
 import com.wyl.example.gatewaydemo.entity.PredicateEntity;
 import com.wyl.example.gatewaydemo.entity.RouteEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
@@ -46,12 +48,19 @@ public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
      * 路由配置文件所在分组
      */
     private static final String GROUP = "DEFAULT_GROUP";
+
     @Autowired
     private RouteDefinitionWriter routeDefinitionWriter;
 
     private ApplicationEventPublisher applicationEventPublisher;
 
     private static final List<String> ROUTE_LIST = new ArrayList<>();
+
+    @Value("${spring.cloud.nacos.config.server-addr}")
+    private String SERVER_ADDR;
+
+    @Value("${spring.cloud.nacos.config.namespace:}")
+    private String NAMESPACE;
 
     /**
      * 监听nacos上的路由配置文件的更新
@@ -62,9 +71,11 @@ public class DynamicRoutingConfig implements ApplicationEventPublisherAware {
     public void refreshRouting() throws NacosException {
         Properties properties = new Properties();
         //配置中心地址
-        properties.put(PropertyKeyConst.SERVER_ADDR, "127.0.0.1:8848");
+        properties.put(PropertyKeyConst.SERVER_ADDR, SERVER_ADDR);
         //配置中心命名空间ID
-        properties.put(PropertyKeyConst.NAMESPACE, "ba53da1e-57ff-4033-9d67-b82e579ea923");
+        if (StringUtils.isNotEmpty(NAMESPACE)) {
+            properties.put(PropertyKeyConst.NAMESPACE, NAMESPACE);
+        }
         ConfigService configService = NacosFactory.createConfigService(properties);
         configService.addListener(DATA_ID, GROUP, new Listener() {
             @Override

@@ -1,5 +1,7 @@
 package com.wyl.example.gatewaydemo.predicate;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.handler.predicate.AbstractRoutePredicateFactory;
 import org.springframework.web.server.ServerWebExchange;
 
@@ -12,14 +14,18 @@ import java.util.function.Predicate;
  */
 public class CheckAuthRoutePredicateFactory extends AbstractRoutePredicateFactory<CheckAuthRoutePredicateFactory.Config> {
 
+    private final Logger logger = LoggerFactory.getLogger(CheckAuthRoutePredicateFactory.class);
+
     public CheckAuthRoutePredicateFactory() {
         super(Config.class);
     }
 
     private static final String KEY = "name";
+    private int i = 0;
 
     /**
      * 将获取到的参数按顺序赋值
+     *
      * @return
      */
     @Override
@@ -29,18 +35,18 @@ public class CheckAuthRoutePredicateFactory extends AbstractRoutePredicateFactor
 
     /**
      * 自定义业务实现
+     *
      * @param config
      * @return
      */
     @Override
-    public Predicate<ServerWebExchange> apply(Config config) { System.out.println("进入断言");
-
+    public Predicate<ServerWebExchange> apply(Config config) {
+        System.out.println("进入断言");
+        logger.info("收到请求{}", i);
+        i++;
         return exchange -> {
 //            System.err.println("进入了CheckAuthRoutePredicateFactory\t" + config.getName());
-            if (config.getName().equals("wyl")) {
-                return true;
-            }
-            return false;
+            return true;
         };
     }
 

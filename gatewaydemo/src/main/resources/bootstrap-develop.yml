@@ -1,6 +1,6 @@
 spring:
   application:
-    name: feigndemo-consumer
+    name: gatewaydemo
   profiles:
     active:
   cloud:
@@ -18,10 +18,8 @@ ribbon:
   #请求连接的超时时间
   ConnectTimeout: 60000
 feign:
-  sentinel:
-    enabled: true
-  httpclient:
-    connection-timeout: 20000
+    sentinel:
+      enabled: true
 management:
   endpoints:
     web:

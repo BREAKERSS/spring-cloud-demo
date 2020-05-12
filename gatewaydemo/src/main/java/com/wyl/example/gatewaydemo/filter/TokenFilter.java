@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -15,21 +14,25 @@ import reactor.core.publisher.Mono;
 public class TokenFilter implements GlobalFilter, Ordered {
 
     private static final Logger logger = LoggerFactory.getLogger(TokenFilter.class);
+    private int i = 0;
 
     /**
      * 自定义过滤器业务，判断token是否存在
+     *
      * @param exchange
      * @param chain
      * @return
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        String token = exchange.getRequest().getQueryParams().getFirst("token");
-        if (token == null || token.isEmpty()) {
-            logger.info("token is empty...");
-            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-            return exchange.getResponse().setComplete();
-        }
+//        String token = exchange.getRequest().getQueryParams().getFirst("token");
+//        if (token == null || token.isEmpty()) {
+//            logger.info("token is empty...");
+//            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+//            return exchange.getResponse().setComplete();
+//        }
+        logger.info("收到请求：{}", i);
+        i++;
         return chain.filter(exchange);
     }
 

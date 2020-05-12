@@ -1,18 +1,20 @@
-package com.wyl.example.feigndemoconsumer.controller.testdemo;
+package com.wyl.example.gatewaydemo.controller;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author wyl
- */
 @RestController
-@RequestMapping("/config")
-public class ConfigController {
+@RequestMapping("/gateWay")
+public class TestController {
+    private static final Logger logger = LoggerFactory.getLogger(TestController.class);
+
     @GetMapping("/get")
     public String findDistrictGrade() throws Exception {
-//        throw new Exception("出错啦");
+        logger.info("收到请求啦");
         return "config get";
     }
 }

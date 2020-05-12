@@ -1,15 +1,12 @@
 spring:
   application:
-    name: fegindemo-api
+    name: feigndemo-api
   profiles:
     active:
   cloud:
     nacos:
       config:
-        server-addr: 127.0.0.1:8848
+        server-addr: 47.103.45.234:8848,47.103.53.23:8848,47.103.53.23:8847
         file-extension: yaml
-        namespace: 56f8e299-718f-4526-be88-5d3ee8979236
-        group: DEFAULT_GROUP
       discovery:
-        server-addr: 127.0.0.1:8848
-        namespace: 56f8e299-718f-4526-be88-5d3ee8979236
+        server-addr:  47.103.45.234:8848,47.103.53.23:8848,47.103.53.23:8847

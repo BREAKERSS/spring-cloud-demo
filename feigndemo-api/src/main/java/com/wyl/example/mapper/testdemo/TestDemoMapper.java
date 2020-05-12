@@ -1,4 +1,4 @@
-package com.wyl.example.feigndemoapi.mapper.testdemo;
+package com.wyl.example.mapper.testdemo;
 
 import org.springframework.stereotype.Repository;
 
