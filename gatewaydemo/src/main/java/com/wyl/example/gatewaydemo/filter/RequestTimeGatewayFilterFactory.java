@@ -7,7 +7,7 @@ import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFac
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import reactor.core.publisher.Mono;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +26,7 @@ public class RequestTimeGatewayFilterFactory extends AbstractGatewayFilterFactor
      */
     @Override
     public List<String> shortcutFieldOrder() {
-        return Arrays.asList(KEY);
+        return Collections.singletonList(KEY);
     }
 
     /**

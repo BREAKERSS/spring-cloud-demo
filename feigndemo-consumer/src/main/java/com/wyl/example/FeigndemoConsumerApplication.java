@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @SpringBootApplication
 @EnableFeignClients(basePackages = {"com.wyl.example"})
-//@MapperScan(basePackages = {"com.jiayiedu.mapper"})
+//@MapperScan(basePackages = {"com.jiayiedu.com.wyl.example.mapper"})
 //@EnableCircuitBreaker
 public class FeigndemoConsumerApplication {
 

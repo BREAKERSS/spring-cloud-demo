@@ -1,6 +1,7 @@
 package com.wyl.example.gatewaydemo;
 
 import com.wyl.example.gatewaydemo.filter.RequestTimeGatewayFilterFactory;
+import com.wyl.example.gatewaydemo.filter.TokenFilter;
 import com.wyl.example.gatewaydemo.predicate.CheckAuthRoutePredicateFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,13 +37,13 @@ public class GatewaydemoApplication {
 //                .build();
 //    }
 
-//    /**
-//     * 全局过滤器注册
-//     */
-//    @Bean
-//    public TokenFilter tokenFilter() {
-//        return new TokenFilter();
-//    }
+    /**
+     * 全局过滤器注册
+     */
+    @Bean
+    public TokenFilter tokenFilter() {
+        return new TokenFilter();
+    }
 
     /**
      * 自定义过滤器工厂

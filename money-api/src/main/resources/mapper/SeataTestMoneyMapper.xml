@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace=".mapper.SeataTestMoneyDao">
+
+    <resultMap type=".entity.SeataTestMoney" id="SeataTestMoneyMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="money" column="money" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SeataTestMoneyMap">
+        select
+          id, money
+        from teaching_edu.seata_test_money
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SeataTestMoneyMap">
+        select
+          id, money
+        from teaching_edu.seata_test_money
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SeataTestMoneyMap">
+        select
+          id, money
+        from teaching_edu.seata_test_money
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="money != null">
+                and money = #{money}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into teaching_edu.seata_test_money(money)
+        values (#{money})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update teaching_edu.seata_test_money
+        <set>
+            <if test="money != null">
+                money = #{money},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from teaching_edu.seata_test_money where id = #{id}
+    </delete>
+
+</mapper>

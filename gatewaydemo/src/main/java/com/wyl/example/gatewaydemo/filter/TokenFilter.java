@@ -1,5 +1,6 @@
 package com.wyl.example.gatewaydemo.filter;
 
+import cn.hutool.system.SystemUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -25,12 +26,15 @@ public class TokenFilter implements GlobalFilter, Ordered {
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        logger.info("RemoteAddress地址:{}",exchange.getRequest().getRemoteAddress());
+        logger.info("x-forwarded-for地址:{}",exchange.getRequest().getHeaders().get("x-forwarded-for"));
 //        String token = exchange.getRequest().getQueryParams().getFirst("token");
 //        if (token == null || token.isEmpty()) {
 //            logger.info("token is empty...");
 //            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
 //            return exchange.getResponse().setComplete();
 //        }
+        logger.info("ip地址:{}",SystemUtil.getHostInfo().getAddress());
         logger.info("收到请求：{}", i);
         i++;
         return chain.filter(exchange);

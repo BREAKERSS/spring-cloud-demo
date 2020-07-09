@@ -1,8 +1,8 @@
-#server:
-#  tomcat:
-#    max-http-post-size: 900000
-#    uri-encoding: UTF-8
-#    max-connections: 60000
+server:
+  tomcat:
+    max-http-post-size: 900000
+    uri-encoding: UTF-8
+    max-connections: 60000
 
 spring:
   application:
@@ -79,11 +79,11 @@ spring:
 ##            groupId: SENTINEL_GROUP
 ##            rule-type: authority
 ##            namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: '*'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 #请求处理的超时时间
 
 

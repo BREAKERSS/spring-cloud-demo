@@ -1,4 +1,4 @@
-//package com.wyl.example.service.testdemo;
+//package com.wyl.example.com.wyl.example.service.testdemo;
 //
 //import org.springframework.stereotype.Component;
 //

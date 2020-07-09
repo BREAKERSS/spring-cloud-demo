@@ -1,0 +1,53 @@
+
+spring:
+  application:
+    name: gateway-sentinel
+  profiles:
+    active:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.0.6:8847,192.168.0.6:8848,192.168.0.5:8848
+        file-extension: yaml
+      discovery:
+        server-addr:  192.168.0.6:8847,192.168.0.6:8848,192.168.0.5:8848
+    gateway:
+      enabled: true
+    #      限流熔断
+    sentinel:
+      filter:
+        enabled: false
+      transport:
+        port: 8733
+        # Sentinel 控制台地址
+        dashboard: localhost:8080
+      # 服务启动直接建立心跳连接
+      eager: true
+      #      数据源
+      datasource:
+        #      名称随意
+        #      限流
+        flow:
+          #        从nacos获取数据
+          nacos:
+            #          nacos地址
+            server-addr: 192.168.0.6:8847,192.168.0.6:8848,192.168.0.5:8848
+            dataId: ${spring.application.name}-gw-flow-rules.json
+            groupId: DEFAULT_GROUP
+            rule-type: gw-flow
+        degrade:
+          nacos:
+            server-addr: 192.168.0.6:8847,192.168.0.6:8848,192.168.0.5:8848
+            dataId: ${spring.application.name}-degrade-rules.json
+            groupId: DEFAULT_GROUP
+            rule-type: degrade
+#            namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
+
+ribbon:
+  eureka:
+    enabled: false
+  ReadTimeout: 60000
+  #请求连接的超时时间
+  ConnectTimeout: 60000
+server:
+  port: 8888

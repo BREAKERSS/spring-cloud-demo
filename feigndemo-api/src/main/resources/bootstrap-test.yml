@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: feigndemo-api
+  profiles:
+    active:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.0.6:8847,192.168.0.6:8848,192.168.0.5:8848
+        file-extension: yaml
+      discovery:
+        server-addr:  192.168.0.6:8847,192.168.0.6:8848,192.168.0.5:8848
+    gateway:
+      enabled: true
+ribbon:
+  eureka:
+    enabled: false
+  ReadTimeout: 60000
+  #请求连接的超时时间
+  ConnectTimeout: 60000
+name:
+  username: wyl-test
+server:
+  port: 10103

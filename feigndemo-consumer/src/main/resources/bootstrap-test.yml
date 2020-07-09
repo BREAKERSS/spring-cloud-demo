@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: feigndemo-consumer
+  profiles:
+    active:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.0.6:8847,192.168.0.6:8848,192.168.0.5:8848
+        file-extension: yaml
+      discovery:
+        server-addr:  192.168.0.6:8847,192.168.0.6:8848,192.168.0.5:8848
+    gateway:
+      enabled: true
+ribbon:
+  eureka:
+    enabled: false
+  ReadTimeout: 60000
+  #请求连接的超时时间
+  ConnectTimeout: 60000
+
+server:
+  port: 9898
+
+feigndemo-api:
+  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
+    #请求连接超时时间
+    ConnectTimeout: 60000
+    #请求处理的超时时间
+    ReadTimeout: 60000
+    #对所有请求都进行重试
+    OkToRetryOnAllOperations: true
+    #切换实例的重试次数
+    MaxAutoRetriesNextServer: 2
+    #对当前实例的重试次数
+    MaxAutoRetries: 1

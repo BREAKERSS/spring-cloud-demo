@@ -1,3 +1,4 @@
+
 spring:
   application:
     name: feigndemo-api
@@ -8,11 +9,11 @@ spring:
       config:
         server-addr: 127.0.0.1:8848
         file-extension: yaml
-        namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
-        group: DEFAULT_GROUP
+#        namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
+#        group: DEFAULT_GROUP
       discovery:
         server-addr: 127.0.0.1:8848
-        namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
+#        namespace: ba53da1e-57ff-4033-9d67-b82e579ea923
 ribbon:
   eureka:
     enabled: false
@@ -20,7 +21,6 @@ ribbon:
   #请求连接的超时时间
   ConnectTimeout: 60000
 feign:
-
     sentinel:
       enabled: true
 management:
@@ -28,3 +28,15 @@ management:
     web:
       exposure:
         include: '*,hystrix.stream'
+seata:
+  application-id: ${spring.application.name} # Seata 应用名称，默认使用 ${spring.application.name}
+  tx-service-group: default # Seata 事务组, 高版本没找到相关配置, 是否可配置未知 选用默认default
+  # 服务配置项
+  service:
+    # 虚拟组和分组的映射 1.0.0以上好像将vgroup-mapping 改为 vgroupMapping, 此处是否影响未测试
+    vgroup_mapping:
+      # 此处Key对应 tx-service-group 的 Value, 此处 value 默认 default
+      default: default
+    # 分组和 Seata 服务的映射 默认端口8091
+    grouplist:
+      default: 127.0.0.1:8091

@@ -43,6 +43,12 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.alibaba.csp</groupId>
+                        <artifactId>sentinel-transport-simple-http</artifactId>
+                    </exclusion>
+                </exclusions>
                 <version>0.9.0.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
