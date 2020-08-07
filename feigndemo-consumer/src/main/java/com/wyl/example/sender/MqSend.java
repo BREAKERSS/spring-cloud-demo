@@ -15,13 +15,13 @@ import java.util.Date;
  * @date 2020/3/26
  */
 @Component
-public class MqSend implements RabbitTemplate.ReturnCallback,RabbitTemplate.ConfirmCallback {
+public class MqSend implements RabbitTemplate.ReturnCallback, RabbitTemplate.ConfirmCallback {
     private static final Logger logger = LoggerFactory.getLogger(MqSend.class);
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
     public Boolean peopleSend(String people) {
-        logger.info("开始向people管道推送: {}" , people);
+        logger.info("开始向people管道推送: {}", people);
         this.rabbitTemplate.setReturnCallback(this);
         this.rabbitTemplate.setConfirmCallback(this);
         CorrelationData correlationData = new CorrelationData();
@@ -31,7 +31,7 @@ public class MqSend implements RabbitTemplate.ReturnCallback,RabbitTemplate.Conf
     }
 
     public Boolean moneySend(String money) {
-        logger.info("开始向money管道推送: {}" , money);
+        logger.info("开始向money管道推送: {}", money);
         this.rabbitTemplate.setReturnCallback(this);
         this.rabbitTemplate.setConfirmCallback(this);
         CorrelationData correlationData = new CorrelationData();
@@ -41,17 +41,40 @@ public class MqSend implements RabbitTemplate.ReturnCallback,RabbitTemplate.Conf
     }
 
     public Boolean delaySend(String msg) {
-        logger.info("开始向delay管道推送: {}" , msg);
+        logger.info("开始向delay管道推送: {}", msg);
         this.rabbitTemplate.setReturnCallback(this);
         this.rabbitTemplate.setConfirmCallback(this);
-        logger.info("【订单生成时间】" + new Date().toString() +"【1分钟后检查订单是否已经支付】"  );
+        logger.info("【订单生成时间】" + new Date().toString() + "【1分钟后检查订单是否已经支付】");
 
-        this.rabbitTemplate.convertAndSend("delayDirectExchange","delayDirectRouting", msg, message-> {
+        this.rabbitTemplate.convertAndSend("delayDirectExchange", "delayDirectRouting", msg, message -> {
             // 如果配置了 params.put("x-message-ttl", 5 * 1000);
             // 那么这一句也可以省略,具体根据业务需要是声明 Queue 的时候就指定好延迟时间还是在发送自己控制时间
             message.getMessageProperties().setExpiration(1000 * 60 + "");
             return message;
         });
+        return true;
+    }
+
+    private int i = 0;
+
+    public Boolean rabbitDelaySend(String msg) {
+        logger.info("开始向rabbitDelay管道推送: {}", msg);
+        this.rabbitTemplate.setReturnCallback(this);
+        this.rabbitTemplate.setConfirmCallback(this);
+        logger.info("【订单生成时间】" + new Date().toString() + "【1分钟后检查订单是否已经支付】");
+
+//        this.rabbitTemplate.convertAndSend("rabbitDelayExchange","rabbitDelayRouting", msg, message-> {
+//            // 如果配置了 params.put("x-message-ttl", 5 * 1000);
+//            // 那么这一句也可以省略,具体根据业务需要是声明 Queue 的时候就指定好延迟时间还是在发送自己控制时间
+//            message.getMessageProperties().setExpiration(1000 * 60 + "");
+//            return message;
+//        });
+
+        this.rabbitTemplate.convertAndSend("rabbitDelayExchange", "rabbitDelayRouting", "订单实体类对象信息" + i, message -> {
+            message.getMessageProperties().setDelay(1000 * 60);
+            return message;
+        });
+        i++;
         return true;
     }
 

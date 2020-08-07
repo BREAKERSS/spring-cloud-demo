@@ -64,6 +64,16 @@ public class TestDemoController {
             return "error";
         }
     }
+    @GetMapping("/rabbitDelaySend")
+    public String rabbitDelaySend(String msg) {
+        try {
+
+            return String.valueOf(mqSend.rabbitDelaySend(msg));
+        } catch (Exception e) {
+            logger.error("出错啦", e);
+            return "error";
+        }
+    }
 
 
 }

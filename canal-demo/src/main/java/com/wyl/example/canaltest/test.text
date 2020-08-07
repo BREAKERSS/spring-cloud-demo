@@ -1,0 +1,118 @@
+================> binlog[binlog.000008:62709907] , name[teaching_homework,te_answer] , eventType : DELETE
+Disconnected from the target VM, address: '127.0.0.1:3796', transport: 'socket'
+DELETE
+id : 5e0A034A335L9C3K2o2c3x5R4D6S8p83 update=false
+question_id : 5a0z09453N5F9D3n2W1h8t6s3y1Y6Y8t update=false
+answer_no : 1 update=false
+answer_content : <p>$y=-2x-4$；${{y}_{2}}=-\frac{6}{x}$；</p>
+ update=false
+flags : 0 update=false
+deleted : 0 update=false
+operator : 4t8A7U2D4U7E7x4X2i1R2t1n12684Q8e update=false
+create_time : 2020-07-09 14:40:27 update=false
+modify_user : 4t8A7U2D4U7E7x4X2i1R2t1n12684Q8e update=false
+modify_time : 2020-07-09 14:40:27 update=false
+DELETE
+id : 5r0O0d4I3b5F9u3v222R3W5W456B8x8e update=false
+question_id : 5a0z09453N5F9D3n2W1h8t6s3y1Y6Y8t update=false
+answer_no : 2 update=false
+answer_content : <p>8</p>
+ update=false
+flags : 0 update=false
+deleted : 0 update=false
+operator : 4t8A7U2D4U7E7x4X2i1R2t1n12684Q8e update=false
+create_time : 2020-07-09 14:40:27 update=false
+modify_user : 4t8A7U2D4U7E7x4X2i1R2t1n12684Q8e update=false
+modify_time : 2020-07-09 14:40:27 update=false
+================> binlog[binlog.000008:62710614] , name[teaching_homework,te_question_knowledge_relation] , eventType : DELETE
+================> binlog[binlog.000008:62711200] , name[teaching_homework,te_question] , eventType : UPDATE
+================> binlog[binlog.000008:62714339] , name[teaching_homework,te_question_knowledge_relation] , eventType : INSERT
+================> binlog[binlog.000008:62715041] , name[teaching_homework,te_answer] , eventType : INSERT
+INSERT
+id : 5k0t2N481X4u9E4a1u692y6O467W0k4N update=true
+question_id : 5a0z09453N5F9D3n2W1h8t6s3y1Y6Y8t update=true
+answer_no : 1 update=true
+answer_content : <p>$y=-2x-4$；${{y}_{2}}=-\frac{6}{x}$；</p>
+ update=true
+flags : 0 update=true
+deleted : 0 update=true
+operator : 4s828c0O9u1C6y5x8U981G3M7A9W2v0U update=true
+create_time : 2020-07-23 14:11:59 update=true
+modify_user : 4s828c0O9u1C6y5x8U981G3M7A9W2v0U update=true
+modify_time : 2020-07-23 14:11:59 update=true
+INSERT
+id : 5I0h294X1t4M904K1f622s6f417u0p4S update=true
+question_id : 5a0z09453N5F9D3n2W1h8t6s3y1Y6Y8t update=true
+answer_no : 2 update=true
+answer_content : <p>8</p>
+ update=true
+flags : 0 update=true
+deleted : 0 update=true
+operator : 4s828c0O9u1C6y5x8U981G3M7A9W2v0U update=true
+create_time : 2020-07-23 14:11:59 update=true
+modify_user : 4s828c0O9u1C6y5x8U981G3M7A9W2v0U update=true
+modify_time : 2020-07-23 14:11:59 update=true
+
+
+
+
+
+
+
+
+
+
+INSERT INTO te_answer ( id, question_id, answer_no, answer_content, flags, deleted, operator, create_time, modify_user, modify_time )
+VALUES
+	(
+		'5d052u4a1a7R052F0B053M5K1W7G434p',
+		'4e9i2N3k700Y308v4x517K8s2K5s2881',
+		'1','< p >直线的解析式为： y＝ & minus;
+	x＋ 3，双曲线的解析式为 y＝$\ frac { 2 }{ x } $ </ p >',
+	'0',
+	'0',
+	'4s828c0O9u1C6y5x8U981G3M7A9W2v0U',
+	'2020-07-23 14:33:07',
+	'4s828c0O9u1C6y5x8U981G3M7A9W2v0U',
+	'2020-07-23 14:33:07'
+);
+INSERT INSERT INTO te_answer (
+	id,
+	question_id,
+	answer_no,
+	answer_content,
+	flags,
+	deleted,
+	operator, create_time,
+		modify_user,
+		modify_time
+	)
+VALUES
+	(
+		'5c0I2m4u1w7Y0G280f0V3D5L1O7l4A47',
+		'4e9i2N3k700Y308v4x517K8s2K5s2881',
+		'2','< p > $\sqrt { 2 } $ </ p >',
+		'0',
+		'0',
+		'4s828c0O9u1C6y5x8U981G3M7A9W2v0U',
+		'2020-07-23 14:33:07',
+		'4s828c0O9u1C6y5x8U981G3M7A9W2v0U',
+		'2020-07-23 14:33:07'
+	);
+INSERT INSERT INTO te_answer ( id, question_id, answer_no, answer_content, flags, deleted, operator, create_time, modify_user, modify_time )
+VALUES
+	(
+		'5G0P2O4P1c7P0l2p0c0i3652177J4F4v',
+		'4e9i2N3k700Y308v4x517K8s2K5s2881',
+		'3','< p >存在，符号条件的点 C有 4个，即（ & minus;
+	1， & minus;
+	2），（ & minus;
+	2， & minus;
+	1），（ $\ frac { 9+ \sqrt { 73 }}{ 2 } $，$\ frac { 4 }{ 9+ \sqrt { 73 }} $），（$\ frac { 9- \sqrt { 73 }}{ 2 } $，$\ frac { 4 }{ 9- \sqrt { 73 }} $） </ p >',
+	'0',
+	'0',
+	'4s828c0O9u1C6y5x8U981G3M7A9W2v0U',
+	'2020-07-23 14:33:07',
+	'4s828c0O9u1C6y5x8U981G3M7A9W2v0U',
+'2020-07-23 14:33:07'
+);
