@@ -71,3 +71,15 @@ management:
 #feign:
 #    sentinel:
 #      enabled: true
+xxl:
+  job:
+    accessToken:
+    admin:
+      addresses: http://192.168.0.6:20034/xxl-job-admin
+    executor:
+      address:
+      appname: jiayi-job-executor
+      ip:
+      logpath: /data/applogs/xxl-job/jobhandler
+      logretentiondays: 30
+      port: 29990
