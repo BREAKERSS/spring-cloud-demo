@@ -15,14 +15,16 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     platform: mysql
-    url: jdbc:mysql://192.168.0.2:3306/teaching_order?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8&allowMultiQueries=true
+    url: jdbc:mysql://192.168.0.3:3308/teaching_order?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8&allowMultiQueries=true
     username: root
     password: Jiayi@123
   rabbitmq:
-    host: 127.0.0.1
+    host: 192.168.0.3
     port: 5672
-    username: guest
-    password: guest
+#    username: guest
+#    password: guest
+    username: jytest
+    password: jytest@123
     publisher-confirms: true
     publisher-returns: true
     listener:

@@ -34,20 +34,26 @@ public class TestDemoController {
             return "error";
         }
     }
+
     @GetMapping("/peopleSend")
-    public String peopleSend(String peopleName) {
+    public String peopleSend() {
         try {
-            return String.valueOf(mqSend.peopleSend(peopleName));
+            for (int j = 50; j > 0; j--) {
+                mqSend.moneySend(String.valueOf(j));
+                Thread.sleep(1000);
+            }
+            return String.valueOf(true);
         } catch (Exception e) {
             logger.error("出错啦", e);
             return "error";
         }
     }
+
     @GetMapping("/moneySend")
     public String moneySend(String money) {
         try {
-
-            return String.valueOf(mqSend.moneySend(money));
+            String msg = String.valueOf(i++);
+            return String.valueOf(mqSend.moneySend(msg));
         } catch (Exception e) {
             logger.error("出错啦", e);
             return "error";
@@ -64,6 +70,7 @@ public class TestDemoController {
             return "error";
         }
     }
+
     @GetMapping("/rabbitDelaySend")
     public String rabbitDelaySend(String msg) {
         try {

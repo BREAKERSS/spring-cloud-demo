@@ -1,0 +1,6 @@
+thread:
+  core_poll_size: 3
+  max_pool_size: 5
+  queue_capacity: 10
+  keep_alive_seconds: 120
+  thread_name_prefix: 'wyl-'
